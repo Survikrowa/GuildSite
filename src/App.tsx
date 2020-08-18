@@ -1,7 +1,17 @@
-import React from "react";
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Home } from './pages/home';
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route>
+          <Home />
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;

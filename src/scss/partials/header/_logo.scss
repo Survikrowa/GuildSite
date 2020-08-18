@@ -1,0 +1,18 @@
+#logo {
+  display: none;
+}
+
+#logo_s {
+  margin: 12px;
+  display: inline-block;
+}
+
+@media (min-width: 1200px) {
+  #logo {
+    display: inline-block;
+  }
+
+  #logo_s {
+    display: none;
+  }
+}
