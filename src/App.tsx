@@ -1,16 +1,10 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Home } from './pages/home';
-
+import React from "react";
+import { Button } from "reactstrap";
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route>
-          <Home />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <>
+      <Button color="primary">Click me</Button>
+    </>
   );
 }
 
