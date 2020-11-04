@@ -1,6 +1,7 @@
 import React from "react";
 import tavern from "../assets/tavern.jpg";
 import { AboutUsItems } from "../components/AboutUs/AboutUsItems";
+import { AppFooter } from "../components/Footer/AppFooter";
 
 export const AboutUs = () => {
   return (
@@ -31,6 +32,7 @@ export const AboutUs = () => {
           <AboutUsItems />
         </div>
       </section>
+      <AppFooter />
     </main>
   );
 };
