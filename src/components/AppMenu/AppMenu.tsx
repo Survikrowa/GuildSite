@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
+import { RegisterForm } from "../Form/RegisterForm";
 
 export const AppMenu = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleModalButton = () => setOpen((prevState) => !prevState);
+
   return (
     <header className="header">
       <nav
@@ -46,9 +53,9 @@ export const AppMenu = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/login">
+              <button className="nav-item" onClick={handleModalButton}>
                 Login
-              </Link>
+              </button>
             </li>
             <li className="nav-item d-flex nav-discord">
               <Link to="/" className="d-flex">
@@ -71,6 +78,17 @@ export const AppMenu = () => {
           </ul>
         </div>
       </nav>
+      <Modal
+        open={open}
+        onClose={handleModalButton}
+        center
+        styles={{
+          modal: { backgroundColor: "#181818" },
+          closeButton: { fill: "#efe3c3" },
+        }}
+      >
+        <RegisterForm />
+      </Modal>
     </header>
   );
 };
