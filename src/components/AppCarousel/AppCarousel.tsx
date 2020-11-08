@@ -28,7 +28,7 @@ export const AppCarousel = () => {
 
       <svg
         className="hero__chevron-down"
-        enable-background="new 0 0 64 64"
+        enableBackground="new 0 0 64 64"
         height="32"
         viewBox="0 0 64 64"
         width="32"
