@@ -3,14 +3,14 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { Input } from "../Form/Input";
 
-type Inputs = {
+type HofInputs = {
   username: string;
   password: string;
 };
 
 export const RegisterForm = () => {
-  const { register, handleSubmit, errors } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const { register, handleSubmit, errors } = useForm<HofInputs>();
+  const onSubmit: SubmitHandler<HofInputs> = (data) => console.log(data);
 
   return (
     <form className="recruit__form my-3" onSubmit={handleSubmit(onSubmit)}>
