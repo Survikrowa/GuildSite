@@ -1,7 +1,17 @@
+import { features } from "../../data/features";
 import React from "react";
-import tickMark from "../../assets/tick-mark.svg";
+import { FeatureItem } from "./FeatureItem";
+
+type Feature = {
+  text: string;
+};
 
 export const OurOffer = () => {
+  const getFeatures = () =>
+    features.map((item: Feature, i) => {
+      return <FeatureItem key={i}>{item.text}</FeatureItem>;
+    });
+
   return (
     <section className="features py-5">
       <div className="container">
@@ -10,64 +20,7 @@ export const OurOffer = () => {
         </h2>
         <div className="row mt-4">
           <div className="col-12 col-lg-9">
-            <div className="row">
-              <div className=" features__item media col-12 col-lg-6 mt-4">
-                <img
-                  className="features__check-mark align-self-center mr-3"
-                  src={tickMark}
-                  alt="check mark"
-                />
-                <div className="features__text media-body">
-                  <h5 className="mt-0">Feature one</h5>
-                  <p className="features__text">
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-                    scelerisque ante
-                  </p>
-                </div>
-              </div>
-              <div className=" features__item media col-12 col-lg-6 mt-4">
-                <img
-                  className="features__check-mark align-self-center mr-3"
-                  src={tickMark}
-                  alt="check mark"
-                />
-                <div className="features__text media-body">
-                  <h5 className="mt-0">Feature one</h5>
-                  <p className="features__text">
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-                    scelerisque ante
-                  </p>
-                </div>
-              </div>
-              <div className=" features__item media col-12 col-lg-6 mt-4">
-                <img
-                  className="features__check-mark align-self-center mr-3"
-                  src={tickMark}
-                  alt="check mark"
-                />
-                <div className="features__text media-body">
-                  <h5 className="mt-0">Feature one</h5>
-                  <p className="features__text">
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-                    scelerisque ante
-                  </p>
-                </div>
-              </div>
-              <div className=" features__item media col-12 col-lg-6 mt-4">
-                <img
-                  className="features__check-mark align-self-center mr-3"
-                  src={tickMark}
-                  alt="check mark"
-                />
-                <div className="features__text media-body">
-                  <h5 className="mt-0">Feature one</h5>
-                  <p className="features__text">
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-                    scelerisque ante
-                  </p>
-                </div>
-              </div>
-            </div>
+            <div className="row">{getFeatures()}</div>
           </div>
           <div className="col-12 col-lg-3">
             <svg
