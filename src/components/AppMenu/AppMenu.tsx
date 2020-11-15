@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
-import { RegisterForm } from "../Form/RegisterForm";
+import { ModalFormBody } from "./ModalWrapper";
 
 export const AppMenu = () => {
   const [open, setOpen] = useState(false);
@@ -53,8 +53,11 @@ export const AppMenu = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <button className="nav-item" onClick={handleModalButton}>
-                Login
+              <button
+                className="nav-link nav-link__button"
+                onClick={handleModalButton}
+              >
+                Join us!
               </button>
             </li>
             <li className="nav-item d-flex nav-discord">
@@ -87,7 +90,7 @@ export const AppMenu = () => {
           closeButton: { fill: "#efe3c3" },
         }}
       >
-        <RegisterForm />
+        <ModalFormBody />
       </Modal>
     </header>
   );

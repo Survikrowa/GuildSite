@@ -1,10 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import Modal from "react-responsive-modal";
+import { ModalFormBody } from "../AppMenu/ModalWrapper";
 
 export const Contact = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleModalButton = () => setOpen((prevState) => !prevState);
   return (
     <section className="contact">
-      <div className="container text-center">
+      <div className="container text-center d-flex align-items-center flex-column">
         <svg
           className="contact__jug w-25"
           xmlns="http://www.w3.org/2000/svg"
@@ -27,13 +31,24 @@ export const Contact = () => {
         <p className="contact__subheading text-center">
           So are you ready to join us? Then click that button below!
         </p>
-        <Link
-          to="/login"
-          className="btn btn-primary btn-lg contact__discord-link  m-5 px-5"
+        <button
+          className="nav-link nav-link__button"
+          onClick={handleModalButton}
         >
-          Join
-        </Link>
+          Join us!
+        </button>
       </div>
+      <Modal
+        open={open}
+        onClose={handleModalButton}
+        center
+        styles={{
+          modal: { backgroundColor: "#181818" },
+          closeButton: { fill: "#efe3c3" },
+        }}
+      >
+        <ModalFormBody />
+      </Modal>
     </section>
   );
 };
