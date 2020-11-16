@@ -16,6 +16,7 @@ type SessionProps = {
 export const AppMenu = () => {
   const [open, setOpen] = useState(false);
   const [session, setSession] = useState<SessionProps | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
   const history = useHistory();
   const [mutate] = useMutation(
     () =>
@@ -52,6 +53,10 @@ export const AppMenu = () => {
     await mutate();
   };
 
+  const handleMenuOpen = () => {
+    setIsMenuOpen((prevState) => !prevState);
+  };
+
   return (
     <header className="header">
       <nav
@@ -67,13 +72,14 @@ export const AppMenu = () => {
           Muzykanci z Gruzji
         </Link>
         <button
-          className="navbar-toggler collapsed"
+          className={isMenuOpen ? "navbar-toggler collapsed" : "navbar-toggler"}
           type="button"
           data-toggle="collapse"
           data-target="#navbarsExampleDefault"
           aria-controls="navbarsExampleDefault"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          onClick={handleMenuOpen}
         >
           <div className="navbar__burger">
             <span></span>
@@ -83,7 +89,13 @@ export const AppMenu = () => {
           </div>
         </button>
 
-        <div className="collapse navbar-collapse">
+        <div
+          className={
+            isMenuOpen
+              ? "collapse navbar-collapse"
+              : "collapse navbar-collapse show"
+          }
+        >
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link className="nav-link" to="/about">
