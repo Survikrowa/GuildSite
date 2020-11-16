@@ -1,4 +1,5 @@
 import React from "react";
+import { AppMenu } from "../components/AppMenu/AppMenu";
 import { AppFooter } from "../components/Footer/AppFooter";
 import { RecruitForm } from "../components/Recruit/RecruitForm";
 import { RecruitRequirements } from "../components/Recruit/RecruitRequirements";
@@ -7,6 +8,7 @@ export const Recruit = () => {
   //So here we must implement if we cant get data from session we must display "You're not logged in! Log in to apply "
   return (
     <>
+      <AppMenu />
       <main className="main">
         <section className="recruit">
           <div className="container">
