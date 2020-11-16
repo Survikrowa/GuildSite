@@ -1,13 +1,56 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import { ModalFormBody } from "./ModalWrapper";
+import { queryCache, useMutation } from "react-query";
+import axios from "axios";
+
+type SessionProps = {
+  username: string;
+  userAvatar: string;
+  email: string;
+  userRank: string;
+};
 
 export const AppMenu = () => {
   const [open, setOpen] = useState(false);
+  const [session, setSession] = useState<SessionProps | null>(null);
+  const history = useHistory();
+  const [mutate] = useMutation(
+    () =>
+      axios.post(
+        "http://api.gruzja.localhost:3001/api/users/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      ),
+    {
+      onSuccess: () => {
+        queryCache.invalidateQueries("session");
+        history.replace("/");
+      },
+    }
+  );
+
+  useEffect(() => {
+    const getSession = async () => {
+      const { data } = await axios.get(
+        "http://api.gruzja.localhost:3001/api/session/me",
+        {
+          withCredentials: true,
+        }
+      );
+      setSession(data);
+    };
+    getSession();
+  }, []);
 
   const handleModalButton = () => setOpen((prevState) => !prevState);
+  const handleLogout = async () => {
+    await mutate();
+  };
 
   return (
     <header className="header">
@@ -52,14 +95,33 @@ export const AppMenu = () => {
                 Recruit
               </Link>
             </li>
-            <li className="nav-item">
-              <button
-                className="nav-link nav-link__button"
-                onClick={handleModalButton}
-              >
-                Join us!
-              </button>
-            </li>
+            {session && session.username ? (
+              <>
+                <li className="nav-item">
+                  <Link to="/panel" className="nav-link nav-link__button">
+                    User Panel
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <button
+                    className="nav-link nav-link__button"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <li className="nav-item">
+                <button
+                  className="nav-link nav-link__button"
+                  onClick={handleModalButton}
+                >
+                  Join us!
+                </button>
+              </li>
+            )}
+
             <li className="nav-item d-flex nav-discord">
               <Link to="/" className="d-flex">
                 <svg
@@ -90,7 +152,7 @@ export const AppMenu = () => {
           closeButton: { fill: "#efe3c3" },
         }}
       >
-        <ModalFormBody />
+        <ModalFormBody closeModal={setOpen} />
       </Modal>
     </header>
   );
