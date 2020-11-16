@@ -1,25 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { Input } from "./Input";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 type HofInputs = {
   username: string;
   password: string;
-  email: string;
 };
 
 type Props = {
   handleFormChange: React.Dispatch<React.SetStateAction<string>>;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const LoginForm = ({ handleFormChange }: Props) => {
+export const LoginForm = ({ handleFormChange, setIsModalOpen }: Props) => {
   const { register, handleSubmit, errors } = useForm<HofInputs>();
-  const onSubmit: SubmitHandler<HofInputs> = (data) => console.log(data);
+  const [error, setError] = useState<string | null>("");
+  const history = useHistory();
 
+  const onSubmit: SubmitHandler<HofInputs> = ({ username, password }) => {
+    axios
+      .post(
+        "http://api.gruzja.localhost:3001/api/users/login",
+        {
+          username,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        if (response.data) {
+          setError(null);
+          setIsModalOpen(false);
+          history.replace("/panel");
+        }
+      })
+      .catch((error) => {
+        if (!error.response) {
+          setError("Something went wrong! Server error");
+        }
+      });
+  };
   return (
     <form className="recruit__form my-3" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="recruit__form-heading my-4">Login</h2>
+      <span className="recruit__form-heading" style={{ color: "#a78a6e" }}>
+        {error ? error : ""}
+      </span>
       <div className="row">
         <div className="col-12 col-lg-4">
           <label

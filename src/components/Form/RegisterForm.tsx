@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { Input } from "./Input";
@@ -11,15 +12,52 @@ type HofInputs = {
 
 type Props = {
   handleFormChange: React.Dispatch<React.SetStateAction<string>>;
+  setSuccessMessage: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-export const RegisterForm = ({ handleFormChange }: Props) => {
+export const RegisterForm = ({
+  handleFormChange,
+  setSuccessMessage,
+}: Props) => {
   const { register, handleSubmit, errors } = useForm<HofInputs>();
-  const onSubmit: SubmitHandler<HofInputs> = (data) => console.log(data);
+  const [error, setError] = useState<string | null>("");
+  const onSubmit: SubmitHandler<HofInputs> = ({
+    username,
+    password,
+    email,
+  }) => {
+    axios
+      .post(
+        "http://api.gruzja.localhost:3001/api/users/",
+        {
+          username,
+          password,
+          email,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        if (response.data) {
+          setError(null);
+          handleFormChange("login");
+          setSuccessMessage("Register done! You can log in! now");
+        }
+      })
+      .catch((error) => {
+        if (!error.response) {
+          setError("Something went wrong! Server error");
+        }
+      });
+  };
 
   return (
     <form className="recruit__form my-3" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="recruit__form-heading my-4">Register</h2>
+      <span className="recruit__form-heading" style={{ color: "#a78a6e" }}>
+        {error ? error : ""}
+      </span>
       <div className="row">
         <div className="col-12 col-lg-4">
           <label
