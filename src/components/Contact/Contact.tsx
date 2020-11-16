@@ -47,7 +47,7 @@ export const Contact = () => {
           closeButton: { fill: "#efe3c3" },
         }}
       >
-        <ModalFormBody />
+        <ModalFormBody closeModal={setOpen} />
       </Modal>
     </section>
   );
