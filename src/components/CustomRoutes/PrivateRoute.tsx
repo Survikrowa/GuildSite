@@ -1,18 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
-import { useQuery } from "react-query";
-import axios from "axios";
-import ms from "ms";
-
-const getSession = async () => {
-  const { data } = await axios.get(
-    "http://api.gruzja.localhost:3001/api/session/me",
-    {
-      withCredentials: true,
-    }
-  );
-  return data;
-};
+import {
+  fetchUserSession,
+  getUserSession,
+} from "../../redux/slices/sessionSlice";
+import { useDispatch } from "react-redux";
 
 type Props = {
   children: React.ReactChild;
@@ -21,15 +14,16 @@ type Props = {
 };
 
 export const PrivateRoute = ({ children, ...rest }: Props) => {
-  const { data } = useQuery("session", getSession, {
-    cacheTime: ms("5 minutes"),
-    staleTime: ms("5 minutes"),
-  });
-  return data ? (
+  const userSession = useSelector(getUserSession);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchUserSession());
+  }, [dispatch]);
+  return (
     <Route
       {...rest}
       render={({ location }) =>
-        data.username ? (
+        userSession && userSession.username ? (
           children
         ) : (
           <Redirect
@@ -41,7 +35,5 @@ export const PrivateRoute = ({ children, ...rest }: Props) => {
         )
       }
     />
-  ) : (
-    <span>"loading"</span>
   );
 };

@@ -1,14 +1,69 @@
-import React from "react";
-import { AppMenu } from "../components/AppMenu/AppMenu";
+import React, { useEffect, useState } from "react";
 import { AppFooter } from "../components/Footer/AppFooter";
 import { RecruitForm } from "../components/Recruit/RecruitForm";
 import { RecruitRequirements } from "../components/Recruit/RecruitRequirements";
+import axios from "axios";
+
+type AplicationProps = {
+  data: ApplicationData;
+};
+
+type ApplicationData = {
+  igName: string;
+  userDescription: string;
+  age: string;
+  mainAndAlts: string;
+  prevExp: string;
+  raidDays: string;
+  uiScreen: string;
+  whereDidUFindUs: string;
+  prefRaidLang: string;
+  applicationState: string;
+};
+
+type SessionProps = {
+  username: string;
+  userAvatar: string;
+  email: string;
+  userRank: string;
+};
 
 export const Recruit = () => {
-  //So here we must implement if we cant get data from session we must display "You're not logged in! Log in to apply "
+  const [
+    applicationStatus,
+    setApplicationStatus,
+  ] = useState<AplicationProps | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [session, setSession] = useState<SessionProps | null>(null);
+  useEffect(() => {
+    const getApplicationStatus = async () => {
+      await axios
+        .get("http://api.gruzja.localhost:3001/api/session/me/application", {
+          withCredentials: true,
+        })
+        .then((response) => {
+          setApplicationStatus(response.data);
+        })
+        .catch((error) => {
+          if (error.response.status !== 401) {
+            setError(error.response.data.message);
+          }
+        });
+    };
+    getApplicationStatus();
+    const getSession = async () => {
+      const { data } = await axios.get(
+        "http://api.gruzja.localhost:3001/api/session/me",
+        {
+          withCredentials: true,
+        }
+      );
+      setSession(data);
+    };
+    getSession();
+  }, []);
   return (
     <>
-      <AppMenu />
       <main className="main">
         <section className="recruit">
           <div className="container">
@@ -30,7 +85,7 @@ export const Recruit = () => {
                   x="0px"
                   y="0px"
                   viewBox="0 0 84.673 83.15625"
-                  enable-background="new 0 0 84.673 83.325"
+                  enableBackground="new 0 0 84.673 83.325"
                 >
                   <path
                     fill="#a78a6e"
@@ -40,8 +95,25 @@ export const Recruit = () => {
               </div>
             </div>
             <RecruitRequirements />
-            <RecruitForm />
+            {session && session.username ? (
+              !applicationStatus ? (
+                <RecruitForm />
+              ) : (
+                <h2 className="recruit__heading display-4 mt-5 mb-3">
+                  You already applied :D
+                </h2>
+              )
+            ) : (
+              <h2 className="recruit__heading display-4 mt-5 mb-3">
+                Please log in to fill the application
+              </h2>
+            )}
           </div>
+          {error && error !== "There is no user with provided username" ? (
+            <h2 className="recruit__heading display-4 mt-5 mb-3">{error}</h2>
+          ) : (
+            ""
+          )}
         </section>
       </main>
       <AppFooter />

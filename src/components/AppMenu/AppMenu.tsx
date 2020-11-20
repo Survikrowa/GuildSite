@@ -1,56 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import { ModalFormBody } from "./ModalWrapper";
-import { queryCache, useMutation } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserSession, removeUser } from "../../redux/slices/sessionSlice";
 import axios from "axios";
-
-type SessionProps = {
-  username: string;
-  userAvatar: string;
-  email: string;
-  userRank: string;
-};
 
 export const AppMenu = () => {
   const [open, setOpen] = useState(false);
-  const [session, setSession] = useState<SessionProps | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const history = useHistory();
-  const [mutate] = useMutation(
-    () =>
-      axios.post(
+  const dispatch = useDispatch();
+  const userSession = useSelector(getUserSession);
+
+  const handleModalButton = () => setOpen((prevState) => !prevState);
+  const handleLogout = async () => {
+    await axios
+      .post(
         "http://api.gruzja.localhost:3001/api/users/logout",
         {},
         {
           withCredentials: true,
         }
-      ),
-    {
-      onSuccess: () => {
-        queryCache.invalidateQueries("session");
+      )
+      .then((res) => {
+        dispatch(removeUser());
         history.replace("/");
-      },
-    }
-  );
-
-  useEffect(() => {
-    const getSession = async () => {
-      const { data } = await axios.get(
-        "http://api.gruzja.localhost:3001/api/session/me",
-        {
-          withCredentials: true,
-        }
-      );
-      setSession(data);
-    };
-    getSession();
-  }, []);
-
-  const handleModalButton = () => setOpen((prevState) => !prevState);
-  const handleLogout = async () => {
-    await mutate();
+      });
   };
 
   const handleMenuOpen = () => {
@@ -107,7 +84,7 @@ export const AppMenu = () => {
                 Recruit
               </Link>
             </li>
-            {session && session.username ? (
+            {userSession && userSession?.username ? (
               <>
                 <li className="nav-item">
                   <Link to="/panel" className="nav-link nav-link__button">
@@ -133,7 +110,6 @@ export const AppMenu = () => {
                 </button>
               </li>
             )}
-
             <li className="nav-item d-flex nav-discord">
               <Link to="/" className="d-flex">
                 <svg

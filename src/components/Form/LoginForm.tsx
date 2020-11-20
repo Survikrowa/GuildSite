@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { Input } from "./Input";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { fetchUserSession } from "../../redux/slices/sessionSlice";
+import { useDispatch } from "react-redux";
 
 type HofInputs = {
   username: string;
@@ -18,8 +19,7 @@ type Props = {
 export const LoginForm = ({ handleFormChange, setIsModalOpen }: Props) => {
   const { register, handleSubmit, errors } = useForm<HofInputs>();
   const [error, setError] = useState<string | null>("");
-  const history = useHistory();
-
+  const dispatch = useDispatch();
   const onSubmit: SubmitHandler<HofInputs> = ({ username, password }) => {
     axios
       .post(
@@ -36,7 +36,7 @@ export const LoginForm = ({ handleFormChange, setIsModalOpen }: Props) => {
         if (response.data) {
           setError(null);
           setIsModalOpen(false);
-          history.replace("/panel");
+          dispatch(fetchUserSession());
         }
       })
       .catch((error) => {

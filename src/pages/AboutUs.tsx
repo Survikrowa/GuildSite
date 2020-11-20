@@ -1,13 +1,11 @@
 import React from "react";
 import tavern from "../assets/tavern.jpg";
 import { AboutUsItems } from "../components/AboutUs/AboutUsItems";
-import { AppMenu } from "../components/AppMenu/AppMenu";
 import { AppFooter } from "../components/Footer/AppFooter";
 
 export const AboutUs = () => {
   return (
     <>
-      <AppMenu />
       <main className="main">
         <section className="about">
           <div className="container">

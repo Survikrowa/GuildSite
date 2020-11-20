@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Modal from "react-responsive-modal";
+import { getUserSession } from "../../redux/slices/sessionSlice";
 import { ModalFormBody } from "../AppMenu/ModalWrapper";
 
 export const Contact = () => {
   const [open, setOpen] = useState(false);
 
   const handleModalButton = () => setOpen((prevState) => !prevState);
+  const userSession = useSelector(getUserSession);
   return (
     <section className="contact">
       <div className="container text-center d-flex align-items-center flex-column">
@@ -27,16 +30,23 @@ export const Contact = () => {
             />
           </g>
         </svg>
-        <h2 className="contact__heading display-4 text-center">Get in touch</h2>
-        <p className="contact__subheading text-center">
-          So are you ready to join us? Then click that button below!
-        </p>
-        <button
-          className="nav-link nav-link__button"
-          onClick={handleModalButton}
-        >
-          Join us!
-        </button>
+        {userSession ? null : (
+          <>
+            <h2 className="contact__heading display-4 text-center">
+              Get in touch
+            </h2>
+            <p className="contact__subheading text-center">
+              So are you ready to join us? Then click that button below!
+            </p>
+
+            <button
+              className="nav-link nav-link__button"
+              onClick={handleModalButton}
+            >
+              Join us!
+            </button>
+          </>
+        )}
       </div>
       <Modal
         open={open}

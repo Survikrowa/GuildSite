@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { Input } from "../Form/Input";
+import axios from "axios";
 
 type Inputs = {
   igName: string;
@@ -17,11 +18,59 @@ type Inputs = {
 
 export const RecruitForm = () => {
   const { register, handleSubmit, errors } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-
+  const [error, setError] = useState<string | null>("");
+  const [message, setMessage] = useState<string | null>(null);
+  const onSubmit: SubmitHandler<Inputs> = ({
+    igName,
+    userDescription,
+    age,
+    mainAndAlts,
+    prevExp,
+    raidDays,
+    uiScreen,
+    whereDidUFindUs,
+    prefRaidLang,
+  }) => {
+    axios
+      .post(
+        "http://api.gruzja.localhost:3001/api/session/me/application",
+        {
+          igName,
+          userDescription,
+          age,
+          mainAndAlts,
+          prevExp,
+          raidDays,
+          uiScreen,
+          whereDidUFindUs,
+          prefRaidLang,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        if (response.data) {
+          setError(null);
+          setMessage(
+            "successfully applied! Go to user panel if u want to check your application status"
+          );
+        }
+      })
+      .catch((error) => {
+        if (!error.response) {
+          setError("Something went wrong! Server error");
+        }
+      });
+  };
+  console.log(message);
   return (
     <form className="recruit__form my-3" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="recruit__form-heading my-4">Formularz rekrutacyjny</h2>
+      {error ? <h2 className="recruit__form-heading my-4">{error}</h2> : null}
+      {message ? (
+        <h2 className="recruit__form-heading my-4">{message}</h2>
+      ) : null}
       <div className="row">
         <div className="col-12 col-lg-4">
           <label className="recruit__form-label" htmlFor="igName">
@@ -139,7 +188,11 @@ export const RecruitForm = () => {
           {errors.userDescription && <p>This field is required</p>}
         </div>
         <div className="col-12 d-flex justify-content-end my-3">
-          <button type="submit" className="btn recruit__form-submit btn-lg">
+          <button
+            type="submit"
+            className="btn recruit__form-submit btn-lg"
+            disabled={Boolean(message)}
+          >
             Apply
           </button>
         </div>

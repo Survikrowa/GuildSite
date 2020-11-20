@@ -21,6 +21,7 @@ export const RegisterForm = ({
 }: Props) => {
   const { register, handleSubmit, errors } = useForm<HofInputs>();
   const [error, setError] = useState<string | null>("");
+
   const onSubmit: SubmitHandler<HofInputs> = ({
     username,
     password,
@@ -42,7 +43,9 @@ export const RegisterForm = ({
         if (response.data) {
           setError(null);
           handleFormChange("login");
-          setSuccessMessage("Register done! You can log in! now");
+          setSuccessMessage(
+            "Register done! Please activate your account to log in"
+          );
         }
       })
       .catch((error) => {

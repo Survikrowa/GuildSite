@@ -383,6 +383,43 @@ body {
     }
   }
 }
+.userPanel {
+  padding-top: 150px;
+
+  &__menu {
+    min-height: 5rem;
+    background-color: #89785c;
+  }
+
+  &__item {
+    color: #efe3c3 !important;
+    border-bottom: 1px solid white;
+    text-align: center;
+  }
+}
+
+.application {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    color: #efe3c3;
+  }
+  &__row {
+    display: flex;
+  }
+  &__item {
+    display: flex;
+    justify-self: flex-end;
+    width: 60%;
+    margin-left: 2rem;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    padding: 1rem;
+    max-width: 15rem;
+    min-width: 15rem;
+    word-break: break-word !important;
+  }
+}
 
 .about,
 .recruit {
