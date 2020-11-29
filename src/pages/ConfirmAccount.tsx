@@ -32,7 +32,16 @@ export const ConfirmAccount = () => {
   return (
     <>
       <section style={{ marginTop: "8rem" }}>
-        {message ? <div>{message}</div> : ""}
+        {message ? (
+          <div
+            className="recruit__form-heading d-flex justify-content-center align-items-center"
+            style={{ color: "#a78a6e" }}
+          >
+            {message}
+          </div>
+        ) : (
+          ""
+        )}
         {error ? (
           <span
             className="recruit__form-heading d-flex justify-content-center align-items-center"
