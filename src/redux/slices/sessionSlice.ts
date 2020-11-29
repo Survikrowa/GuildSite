@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
 import axios from "axios";
+import { axiosInstance } from "../../helpers/axiosInstance";
 
 const initialState: InitialStateProps = {
   user: null,
@@ -32,12 +33,9 @@ const sessionSlice = createSlice({
 
 export const fetchUserSession = () => {
   return async (dispatch: AppDispatch) => {
-    const { data } = await axios.get(
-      "http://api.gruzja.localhost:3001/api/session/me",
-      {
-        withCredentials: true,
-      }
-    );
+    const { data } = await axiosInstance.get("/api/session/me", {
+      withCredentials: true,
+    });
     dispatch(setUser(data));
   };
 };

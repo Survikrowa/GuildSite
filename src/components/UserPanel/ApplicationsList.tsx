@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import dayJs from "dayjs";
 import { Link, useRouteMatch } from "react-router-dom";
+import { axiosInstance } from "../../helpers/axiosInstance";
 
 type ApplicationProps = {
   response: ApplicationData[];
@@ -29,8 +30,8 @@ export const ApplicationsList = () => {
   const { url } = useRouteMatch();
   useEffect(() => {
     const getApplications = async () => {
-      await axios
-        .get("http://api.gruzja.localhost:3001/api/applications/", {
+      await axiosInstance
+        .get("/api/applications/", {
           withCredentials: true,
         })
         .then((response) => {

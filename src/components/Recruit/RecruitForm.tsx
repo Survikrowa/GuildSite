@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { Input } from "../Form/Input";
 import axios from "axios";
+import { axiosInstance } from "../../helpers/axiosInstance";
 
 type Inputs = {
   igName: string;
@@ -31,9 +32,9 @@ export const RecruitForm = () => {
     whereDidUFindUs,
     prefRaidLang,
   }) => {
-    axios
+    axiosInstance
       .post(
-        "http://api.gruzja.localhost:3001/api/session/me/application",
+        "/api/session/me/application",
         {
           igName,
           userDescription,

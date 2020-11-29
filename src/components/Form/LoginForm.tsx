@@ -5,6 +5,7 @@ import { Input } from "./Input";
 import axios from "axios";
 import { fetchUserSession } from "../../redux/slices/sessionSlice";
 import { useDispatch } from "react-redux";
+import { axiosInstance } from "../../helpers/axiosInstance";
 
 type HofInputs = {
   username: string;
@@ -21,9 +22,9 @@ export const LoginForm = ({ handleFormChange, setIsModalOpen }: Props) => {
   const [error, setError] = useState<string | null>("");
   const dispatch = useDispatch();
   const onSubmit: SubmitHandler<HofInputs> = ({ username, password }) => {
-    axios
+    axiosInstance
       .post(
-        "http://api.gruzja.localhost:3001/api/users/login",
+        "/api/users/login",
         {
           username,
           password,

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { ApplicationControlPanel } from "./ApplicationControlPanel";
 import axios from "axios";
 import { Application } from "./Application";
+import { axiosInstance } from "../../helpers/axiosInstance";
 type ApplicationParams = {
   id: string;
 };
@@ -29,8 +30,8 @@ export const ApplicationView = () => {
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     const getCurrentApplication = async () => {
-      await axios
-        .get(`http://api.gruzja.localhost:3001/api/applications/${id}`, {
+      await axiosInstance
+        .get(`/api/applications/${id}`, {
           withCredentials: true,
         })
         .then((res) => {

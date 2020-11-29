@@ -6,6 +6,7 @@ import { ModalFormBody } from "./ModalWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserSession, removeUser } from "../../redux/slices/sessionSlice";
 import axios from "axios";
+import { axiosInstance } from "../../helpers/axiosInstance";
 
 export const AppMenu = () => {
   const [open, setOpen] = useState(false);
@@ -16,9 +17,9 @@ export const AppMenu = () => {
 
   const handleModalButton = () => setOpen((prevState) => !prevState);
   const handleLogout = async () => {
-    await axios
+    await axiosInstance
       .post(
-        "http://api.gruzja.localhost:3001/api/users/logout",
+        "/api/users/logout",
         {},
         {
           withCredentials: true,

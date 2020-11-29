@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AppFooter } from "../components/Footer/AppFooter";
+import { axiosInstance } from "../helpers/axiosInstance";
 
 type Params = {
   activationCode: string;
@@ -14,9 +15,9 @@ export const ConfirmAccount = () => {
 
   useEffect(() => {
     const handleAccountActivation = async () => {
-      await axios
+      await axiosInstance
         .post(
-          `http://api.gruzja.localhost:3001/api/requestVerificationCode/${slug.activationCode}`,
+          `/api/requestVerificationCode/${slug.activationCode}`,
           {},
           {
             withCredentials: true,

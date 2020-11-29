@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Application } from "./Application";
 import axios from "axios";
+import { axiosInstance } from "../../helpers/axiosInstance";
 
 type ApplicationData = {
   igName: string;
@@ -22,8 +23,8 @@ export const MyApplication = () => {
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     const getApplication = async () => {
-      await axios
-        .get("http://api.gruzja.localhost:3001/api/session/me/application", {
+      await axiosInstance
+        .get("/api/session/me/application", {
           withCredentials: true,
         })
         .then((res) => {

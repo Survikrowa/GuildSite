@@ -3,6 +3,7 @@ import { AppFooter } from "../components/Footer/AppFooter";
 import { RecruitForm } from "../components/Recruit/RecruitForm";
 import { RecruitRequirements } from "../components/Recruit/RecruitRequirements";
 import axios from "axios";
+import { axiosInstance } from "../helpers/axiosInstance";
 
 type AplicationProps = {
   data: ApplicationData;
@@ -37,8 +38,8 @@ export const Recruit = () => {
   const [session, setSession] = useState<SessionProps | null>(null);
   useEffect(() => {
     const getApplicationStatus = async () => {
-      await axios
-        .get("http://api.gruzja.localhost:3001/api/session/me/application", {
+      await axiosInstance
+        .get("/api/session/me/application", {
           withCredentials: true,
         })
         .then((response) => {

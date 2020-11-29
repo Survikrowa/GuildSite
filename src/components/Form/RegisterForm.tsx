@@ -3,6 +3,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { Input } from "./Input";
+import { axiosInstance } from "../../helpers/axiosInstance";
 
 type HofInputs = {
   username: string;
@@ -27,9 +28,9 @@ export const RegisterForm = ({
     password,
     email,
   }) => {
-    axios
+    axiosInstance
       .post(
-        "http://api.gruzja.localhost:3001/api/users/",
+        "/api/users/",
         {
           username,
           password,
