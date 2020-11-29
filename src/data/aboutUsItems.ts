@@ -1,4 +1,4 @@
-import ardenweld from "../assets/ardenweld.jpg";
+import ardenweld from "../assets/ardenweld.webp";
 
 export const aboutUsItems = [
   {
