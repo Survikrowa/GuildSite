@@ -29,37 +29,36 @@ export const ControlMenu = ({ url }: Props) => {
         >
           My Application
         </NavLink>
-        {userSession.userRank === guildRanks.ADMIN ||
-        userSession.userRank === guildRanks.GRUZIN ? (
-          <NavLink
-            className="nav-link userPanel__item"
-            id="v-pills-home-tab"
-            data-toggle="pill"
-            role="tab"
-            to={`${url}/applications`}
-            aria-controls="v-pills-home"
-            aria-selected="true"
-          >
-            Applications
-          </NavLink>
-        ) : (
-          ""
-        )}
-        {userSession.userRank === guildRanks.ADMIN ? (
-          <NavLink
-            className="nav-link userPanel__item"
-            id="v-pills-profile-tab"
-            data-toggle="pill"
-            role="tab"
-            to={`${url}/users`}
-            aria-controls="v-pills-profile"
-            aria-selected="false"
-          >
-            Users
-          </NavLink>
-        ) : (
-          ""
-        )}
+        {userSession ? (
+          userSession.userRank === guildRanks.ADMIN || userSession.userRank ? (
+            <NavLink
+              className="nav-link userPanel__item"
+              id="v-pills-home-tab"
+              data-toggle="pill"
+              role="tab"
+              to={`${url}/applications`}
+              aria-controls="v-pills-home"
+              aria-selected="true"
+            >
+              Applications
+            </NavLink>
+          ) : null
+        ) : null}
+        {userSession ? (
+          userSession.userRank === guildRanks.ADMIN ? (
+            <NavLink
+              className="nav-link userPanel__item"
+              id="v-pills-profile-tab"
+              data-toggle="pill"
+              role="tab"
+              to={`${url}/users`}
+              aria-controls="v-pills-profile"
+              aria-selected="false"
+            >
+              Users
+            </NavLink>
+          ) : null
+        ) : null}
 
         <NavLink
           className="nav-link userPanel__item"

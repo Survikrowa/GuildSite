@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AppDispatch, RootState } from "../store";
 import axios from "axios";
 
-const initialState = {
+const initialState: InitialStateProps = {
   user: null,
 };
 
@@ -20,8 +21,7 @@ const sessionSlice = createSlice({
   name: "session",
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<InitialStateProps>) {
-      //@ts-ignore
+    setUser(state, action: PayloadAction<SessionProps>) {
       state.user = action.payload;
     },
     removeUser(state) {
@@ -31,8 +31,7 @@ const sessionSlice = createSlice({
 });
 
 export const fetchUserSession = () => {
-  //@ts-ignore
-  return async (dispatch) => {
+  return async (dispatch: AppDispatch) => {
     const { data } = await axios.get(
       "http://api.gruzja.localhost:3001/api/session/me",
       {
@@ -43,7 +42,7 @@ export const fetchUserSession = () => {
   };
 };
 export const { setUser, removeUser } = sessionSlice.actions;
-//@ts-ignore
-export const getUserSession = (state) => state.session.user;
+
+export const getUserSession = (state: RootState) => state.session.user;
 
 export default sessionSlice.reducer;
