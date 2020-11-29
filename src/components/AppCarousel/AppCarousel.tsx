@@ -1,10 +1,10 @@
 import Carousel from "nuka-carousel";
 import React from "react";
-import wow from "../../assets/wow.jpg";
-import icecrown from "../../assets/icecrown.jpg";
-import league from "../../assets/league.jpg";
-import valorant from "../../assets/valorant.jpg";
-import minecraft from "../../assets/minecraft.jpg";
+import wow from "../../assets/wow.webp";
+import icecrown from "../../assets/icecrown.webp";
+import league from "../../assets/league.webp";
+import valorant from "../../assets/valorant.webp";
+import minecraft from "../../assets/minecraft.webp";
 
 export const AppCarousel = () => {
   return (

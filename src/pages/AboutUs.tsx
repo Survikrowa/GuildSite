@@ -1,5 +1,5 @@
 import React from "react";
-import tavern from "../assets/tavern.jpg";
+import tavern from "../assets/tavern.webp";
 import { AboutUsItems } from "../components/AboutUs/AboutUsItems";
 import { AppFooter } from "../components/Footer/AppFooter";
 

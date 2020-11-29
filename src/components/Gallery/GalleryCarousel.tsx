@@ -1,10 +1,10 @@
 import Carousel from "nuka-carousel";
 import React from "react";
-import aboutUs1 from "../../assets/aboutUs1.png";
-import aboutUs2 from "../../assets/aboutUs2.png";
-import aboutUs3 from "../../assets/aboutUs3.png";
-import aboutUs4 from "../../assets/aboutUs4.jpg";
-import aboutUs5 from "../../assets/aboutUs5.png";
+import aboutUs1 from "../../assets/aboutUs1.webp";
+import aboutUs2 from "../../assets/aboutUs2.webp";
+import aboutUs3 from "../../assets/aboutUs3.webp";
+import aboutUs4 from "../../assets/aboutUs4.webp";
+import aboutUs5 from "../../assets/aboutUs5.webp";
 
 export const GalleryCarousel = () => {
   return (
