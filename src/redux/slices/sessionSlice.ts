@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
-import axios from "axios";
 import { axiosInstance } from "../../helpers/axiosInstance";
 
 const initialState: InitialStateProps = {
