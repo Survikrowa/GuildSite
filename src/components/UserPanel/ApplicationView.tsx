@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 import { ApplicationControlPanel } from "./ApplicationControlPanel";
-import axios from "axios";
 import { Application } from "./Application";
 import { axiosInstance } from "../../helpers/axiosInstance";
 type ApplicationParams = {

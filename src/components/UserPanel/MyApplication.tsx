@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Application } from "./Application";
-import axios from "axios";
 import { axiosInstance } from "../../helpers/axiosInstance";
 
 type ApplicationData = {

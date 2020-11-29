@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import dayJs from "dayjs";
 import { Link, useRouteMatch } from "react-router-dom";
 import { axiosInstance } from "../../helpers/axiosInstance";

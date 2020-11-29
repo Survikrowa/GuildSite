@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { Input } from "../Form/Input";
-import axios from "axios";
 import { axiosInstance } from "../../helpers/axiosInstance";
 
 type Inputs = {

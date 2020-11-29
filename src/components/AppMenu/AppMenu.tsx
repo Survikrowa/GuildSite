@@ -5,7 +5,6 @@ import { Modal } from "react-responsive-modal";
 import { ModalFormBody } from "./ModalWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserSession, removeUser } from "../../redux/slices/sessionSlice";
-import axios from "axios";
 import { axiosInstance } from "../../helpers/axiosInstance";
 
 export const AppMenu = () => {
