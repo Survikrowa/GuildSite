@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
+import { config } from 'dotenv';
 import { createTransport } from 'nodemailer';
 import { Op } from 'sequelize';
 import { SALT_ROUNDS } from '../../constants/bcrypt';
@@ -7,6 +8,8 @@ import { User } from './user.model';
 import { registerSchema, loginSchema } from './user.schema';
 import { myAccessToken } from '../../index';
 import { ActivationCodes } from './user.model';
+
+config();
 
 export const findUserBy = (conditions: Record<string, string>) => {
   const findBy = Object.entries(conditions).map(([key, item]) => {

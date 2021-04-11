@@ -1,13 +1,17 @@
 import express, { json, urlencoded } from 'express';
 import Session from 'express-session';
+import { config } from 'dotenv';
 import CookieParser from 'cookie-parser';
 import { google } from 'googleapis';
 import passport from 'passport';
 import Cors from 'cors';
 import { appRouter } from './routes';
-import { strategy as LocalStrategy } from './services/passportStrategies/passportLocalStrategy';
+import { strategy as LocalStrategy } from './modules/user/user.strategy';
 import { User } from './modules/user/user.model';
 import { findUserBy } from './modules/user/user.service';
+
+config();
+
 const memoryStore = require('memorystore')(Session);
 const OAuth2 = google.auth.OAuth2;
 
