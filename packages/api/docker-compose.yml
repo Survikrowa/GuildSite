@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  guildsite_db:
+    container_name: 'guildsite_db'
+    image: postgres:13.1-alpine
+    ports:
+      - '${GUILDSITE_DB_PORT}:${GUILDSITE_DB_PORT}'
+    environment:
+      - POSTGRES_USER=${GUILDSITE_DB_USERNAME}
+      - POSTGRES_PASSWORD=${GUILDSITE_DB_PASSWORD}
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
