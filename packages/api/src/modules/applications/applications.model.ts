@@ -1,6 +1,6 @@
-import { Model, DataTypes, NOW } from "sequelize";
-import { sequelize } from "./sequelizeInstance";
-import { guildApplicationState } from "../constants/guildApplicationStates";
+import { Model, DataTypes, NOW } from 'sequelize';
+import { sequelize } from '../../database/sequelizeInstance';
+import { guildApplicationState } from '../../constants/guildApplicationStates';
 
 export class GuildApplications extends Model {
   public id!: number;
@@ -82,8 +82,8 @@ GuildApplications.init(
     },
   },
   {
-    tableName: "guildApplications",
-    modelName: "guildApplications",
+    tableName: 'guildApplications',
+    modelName: 'guildApplications',
     sequelize: sequelize,
-  }
+  },
 );

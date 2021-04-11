@@ -1,8 +1,8 @@
-import { Strategy as LocalStrategy } from "passport-local";
-import bcrypt from "bcrypt";
-import { hasErrors, parseUserLoginCredentials } from "../dataParser";
-import type { ZodError } from "zod";
-import { findUserBy } from "../databaseServices/findUserBy";
+import { Strategy as LocalStrategy } from 'passport-local';
+import bcrypt from 'bcrypt';
+import { hasErrors } from '../../helpers/zodErrorChecker';
+import type { ZodError } from 'zod';
+import { findUserBy, parseUserLoginCredentials } from './user.service';
 
 export const strategy = new LocalStrategy(async (username, password, done) => {
   try {
@@ -20,20 +20,17 @@ export const strategy = new LocalStrategy(async (username, password, done) => {
           username: parseResult.data.username,
         });
         if (!user) {
-          return done(null, false, { message: "Invalid username or password" });
+          return done(null, false, { message: 'Invalid username or password' });
         } else if (!user.authenticated) {
-          return done(null, false, { message: "Account is not authenticated" });
+          return done(null, false, { message: 'Account is not authenticated' });
         } else {
-          const hashedPassword = user.get("password");
-          const isPasswordMatch = await bcrypt.compare(
-            parseResult.data.password,
-            hashedPassword
-          );
+          const hashedPassword = user.get('password');
+          const isPasswordMatch = await bcrypt.compare(parseResult.data.password, hashedPassword);
           if (isPasswordMatch) {
             return done(null, user);
           } else {
             return done(null, false, {
-              message: "Invalid username or password",
+              message: 'Invalid username or password',
             });
           }
         }

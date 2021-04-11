@@ -1,8 +1,8 @@
-import { Model, DataTypes, NOW } from "sequelize";
-import { sequelize } from "./sequelizeInstance";
-import { logger } from "../services/errorLogger";
-import { guildRanks } from "../constants/guildRanks";
-import { GuildApplications } from "./guildApplications";
+import { Model, DataTypes, NOW } from 'sequelize';
+import { sequelize } from '../../database/sequelizeInstance';
+import { logger } from '../../helpers/logger';
+import { guildRanks } from '../../constants/guildRanks';
+import { GuildApplications } from '../applications/applications.model';
 
 export class User extends Model {
   public id!: number;
@@ -45,7 +45,7 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue:
-        "https://res.cloudinary.com/survikrowa/image/upload/v1597051975/sq6iqojgm6qlm5lqcifv.jpg",
+        'https://res.cloudinary.com/survikrowa/image/upload/v1597051975/sq6iqojgm6qlm5lqcifv.jpg',
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -66,25 +66,60 @@ User.init(
     },
   },
   {
-    tableName: "users",
-    modelName: "users",
+    tableName: 'users',
+    modelName: 'users',
     sequelize: sequelize,
-  }
+  },
 );
 
 User.hasOne(GuildApplications, {
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
 });
 GuildApplications.belongsTo(User);
+
+export class ActivationCodes extends Model {
+  public authCodeId!: number;
+  public activationCode!: string;
+  public createdAt!: Date;
+  public updatedAt!: Date;
+}
+
+ActivationCodes.init(
+  {
+    authCodeId: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    activationCode: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: NOW,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: NOW,
+    },
+  },
+  {
+    tableName: 'activationCodes',
+    sequelize,
+  },
+);
 
 export const checkDB = async () => {
   try {
     await sequelize.authenticate();
-    console.log("Success db connection");
+    console.log('Success db connection');
   } catch (error) {
     console.log(error);
-    logger.log({ level: "error", message: error });
+    logger.log({ level: 'error', message: error });
     process.exit();
   }
 };
