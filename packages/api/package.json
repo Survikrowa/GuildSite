@@ -48,7 +48,7 @@
     "googleapis": "^39.2.0",
     "log4js": "^6.3.0",
     "memorystore": "^1.6.4",
-    "nodemailer": "^6.4.10",
+    "nodemailer": "^6.4.16",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pg": "^8.3.0",
