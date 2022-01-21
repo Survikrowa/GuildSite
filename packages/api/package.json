@@ -46,7 +46,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "googleapis": "^39.2.0",
-    "log4js": "^6.3.0",
+    "log4js": "^6.4.0",
     "memorystore": "^1.6.4",
     "nodemailer": "^6.4.10",
     "passport": "^0.4.1",
